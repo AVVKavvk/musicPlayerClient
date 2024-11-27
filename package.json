@@ -41,5 +41,8 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.15"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
