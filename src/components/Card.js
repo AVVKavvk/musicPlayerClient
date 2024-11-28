@@ -4,20 +4,24 @@ import { FaPlay } from "react-icons/fa";
 import { FaPause } from "react-icons/fa";
 import { GiNextButton } from "react-icons/gi";
 import { GiPreviousButton } from "react-icons/gi";
+import { RxLoop } from "react-icons/rx";
+import { FaShuffle } from "react-icons/fa6";
 
-const MusicCard = ({ data }) => {
+const MusicCard = ({ data, prevSong, nextSong, shuffleSong}) => {
+  
   const music_url = process.env.REACT_APP_MUSIC_URL;
   const { song, singer, description, image, album } = data;
-
+  
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState('0:00');
   const [totalDuration, setTotalDuration] = useState('0:00');
+  const [loop, setLoop] = useState(false);
   const soundRef = useRef(null);
   const song_url = music_url+"/"+song;
-
+  
   useEffect(() => {
-
+    
     soundRef.current = new Howl({
       src: [song_url],
       html5: true,
@@ -26,31 +30,32 @@ const MusicCard = ({ data }) => {
         setTotalDuration(formatTime(duration));
       },
       onend: () => {
-        setIsPlaying(false);
+        setIsPlaying(isPlaying);
         setProgress(0);
         setCurrentTime('0:00');
       },
     });
+    setIsPlaying(false);
+    setProgress(0);
+    setCurrentTime('0:00');
 
     return () => {
-      // Cleanup Howl instance when component unmounts
       if (soundRef.current) {
         soundRef.current.unload();
       }
     };
+    
   }, [song]);
-
-  // Format time helper
+  
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
     return `${minutes}:${secs}`;
   };
-
-  // Handle Play/Pause
+  
   const togglePlayPause = () => {
     if (!soundRef.current) return;
-
+    
     if (isPlaying) {
       soundRef.current.pause();
     } else {
@@ -70,6 +75,14 @@ const MusicCard = ({ data }) => {
     setIsPlaying(!isPlaying);
   };
 
+  const setLoopHandle = () =>{
+    if (!soundRef.current) return ;
+
+    soundRef.current.loop(!loop)
+    setLoop(!loop)
+
+    if(!data.song) return ;
+  }
   return (
     <div className="flex flex-col mt-5 mx-auto justify-center gap-4 px-5 items-center">
     <h1>Now Playing</h1>
@@ -80,8 +93,29 @@ const MusicCard = ({ data }) => {
       <p className="text-md text-gray-500">{singer}</p>
   
 
+      {
+        isPlaying 
+        &&
+        <div className="flex h-6 mt-4 gap-1 items-end justify-center">
+        <div className="w-1 bg-blue-500 h-2 rounded animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+        <div className="w-1 bg-red-500 h-3 rounded animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+        <div className="w-1 bg-green-500 h-4 rounded animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+        <div className="w-1 bg-yellow-500 h-2 rounded animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+        <div className="w-1 bg-purple-500 h-5 rounded animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+        <div className="w-1 bg-pink-500 h-3 rounded animate-bounce" style={{ animationDelay: '0.6s' }}></div>
+        <div className="w-1 bg-teal-500 h-4 rounded animate-bounce" style={{ animationDelay: '0.7s' }}></div>
+        <div className="w-1 bg-orange-500 h-6 rounded animate-bounce" style={{ animationDelay: '0.8s' }}></div>
+        <div className="w-1 bg-lime-500 h-3 rounded animate-bounce" style={{ animationDelay: '0.9s' }}></div>
+        <div className="w-1 bg-indigo-500 h-4 rounded animate-bounce" style={{ animationDelay: '1s' }}></div>
+        <div className="w-1 bg-gray-500 h-5 rounded animate-bounce" style={{ animationDelay: '1.1s' }}></div>
+        <div className="w-1 bg-brown-500 h-2 rounded animate-bounce" style={{ animationDelay: '1.2s' }}></div>
+      </div>
+      }
+
+
+
       <div className="flex flex-row items-center gap-4 mt-4 w-[280px]">
-        <span className="text-sm text-gray-600">{currentTime}</span>
+        <span className="text-sm ">{currentTime}</span>
         <div className="flex-1">
           <div className="w-full bg-gray-200 h-2 rounded">
             <div
@@ -90,12 +124,17 @@ const MusicCard = ({ data }) => {
             ></div>
           </div>
         </div>
-        <span className="text-sm text-gray-600">{totalDuration}</span>
+        <span className="text-sm ">{totalDuration}</span>
       </div>
   
      <div className="flex flex-row gap-6 mt-3 justify-center items-center mx-auto">
+      <button className={`${loop && "bg-slate-800 rounded"} p-1`}
+        onClick={setLoopHandle}
+      >
+        <RxLoop color="white" size={25} />
+      </button>
       <button>
-        <GiPreviousButton color="white" size={25} />
+        <GiPreviousButton color="white" size={25} onClick={prevSong} />
       </button>
      <button
         onClick={togglePlayPause}
@@ -104,7 +143,10 @@ const MusicCard = ({ data }) => {
         {isPlaying ? <FaPause color="white"  size={25} /> : <FaPlay color="white" size={25} />}
       </button>
       <button>
-        <GiNextButton color="white" size={25} />
+        <GiNextButton color="white" size={25} onClick={nextSong} />
+      </button>
+      <button onClick={shuffleSong}>
+        <FaShuffle color="white" size={25} />
       </button>
      </div>
     </div>

@@ -23,21 +23,21 @@ function Listitem() {
     <div className="flex flex-col ml-16 mt-10"> 
       <p className="text-xs font-normal mb-1">MENU</p>
       <ul className="flex flex-col gap-3 ml-2">
-        <li className="flex items-center space-x-4  hover:underline cursor-pointer ">
+        <li className="flex items-center space-x-4   ">
           <IoMdHome size={24} color="#ef4444" />
-          <h1 className="text-lg">Home</h1>
+          <h1 className="text-lg hover:underline cursor-pointer">Home</h1>
         </li>
-        <li className="flex items-center space-x-4 hover:underline cursor-pointer ">
+        <li className="flex items-center space-x-4  ">
           <FaArrowTrendUp size={24} color="#ef4444" />
-          <h1 className="text-lg">Trends</h1>
+          <h1 className="text-lg hover:underline cursor-pointer">Trends</h1>
         </li>
-        <li className="flex items-center space-x-4 hover:underline cursor-pointer ">
+        <li className="flex items-center space-x-4  ">
           <HiMusicNote size={24} color="#ef4444" />
-          <h1 className="text-lg">Library</h1>
+          <h1 className="text-lg hover:underline cursor-pointer">Library</h1>
         </li>
-        <li className="flex items-center space-x-4 hover:underline cursor-pointer ">
+        <li className="flex items-center space-x-4  ">
           <RiExpandDiagonalFill size={24} color="#ef4444" />
-          <h1 className="text-lg">Discover</h1>
+          <h1 className="text-lg hover:underline cursor-pointer">Discover</h1>
         </li>
       </ul>
     </div>
@@ -46,13 +46,13 @@ function Listitem() {
     <div className="flex flex-col ml-16 absolute bottom-16"> 
       <p className="text-xs font-normal mb-1">GENERAL</p>
       <ul className="flex flex-col gap-3 ml-2">
-        <li className="flex items-center space-x-4 hover:underline cursor-pointer">
+        <li className="flex items-center space-x-4 ">
           <RiSettings4Fill size={24} color="#ef4444" />
-          <h1 className="text-lg">Settings</h1>
+          <h1 className="text-lg hover:underline cursor-pointer">Settings</h1>
         </li>
-        <li className="flex items-center space-x-4 hover:underline cursor-pointer">
+        <li className="flex items-center space-x-4 ">
           <MdOutlineLogout size={24} color="#ef4444" />
-          <h1 className="text-lg">LogOut</h1>
+          <h1 className="text-lg hover:underline cursor-pointer">LogOut</h1>
         </li>
       </ul>
     </div>
