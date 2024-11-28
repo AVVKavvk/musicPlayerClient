@@ -81,7 +81,7 @@ const shuffleSong = () => {
 
       <div className="w-[55%]  bg-gradient-to-b from-[#501616] via-[#300f0f] to-[#140808]">
         <Suspense fallback={<h1>Loding......</h1>}>
-        {allSongs.length > 0 ? <MusicPlayer onDataChange={onClickMusicPlayer} allSongs={allSongs} /> : <h1>No songs available</h1>}
+        {allSongs.length > 0 ? <MusicPlayer setSongNumber={setSongNumber} setAllSongs={setAllSongs} onDataChange={onClickMusicPlayer} allSongs={allSongs} /> : <h1 className="flex items-center justify-center mx-auto h-screen">Loading........</h1>}
         </Suspense>
       </div>
       {
