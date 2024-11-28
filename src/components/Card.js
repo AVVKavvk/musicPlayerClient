@@ -96,6 +96,7 @@ const MusicCard = ({ data, prevSong, nextSong, shuffleSong, isPlay , setCurrentS
 
     if (!data.song) return;
   };
+  
   const toggleMute = ()=>{
     if (!soundRef.current) return ;
     soundRef.current.mute(!mute)

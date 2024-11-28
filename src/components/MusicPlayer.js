@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { HiMusicNote } from "react-icons/hi";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { MdVerified } from "react-icons/md";
 
 function MusicPlayer({ allSongs, onDataChange, setAllSongs, setSongNumber ,setIsPlay, currentSong, setCurrentSong}) {
 
@@ -12,16 +13,23 @@ function MusicPlayer({ allSongs, onDataChange, setAllSongs, setSongNumber ,setIs
     setIsPlay(true)
   };
 
+  const [singerImage, setSingerImage] = useState("")
+
+  useEffect(() => {
+    setSingerImage(currentSong?.singer_image || currentSong?.image )
+  
+  }, [currentSong])
+  
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
 
     const items = Array.from(allSongs);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-
+    setSongNumber(result.destination.index)
     setAllSongs(items);
   };
-
+  
   return (
     <div className="mt-10">
       <div className="flex px-10 justify-center items-center mx-auto">
@@ -39,6 +47,18 @@ function MusicPlayer({ allSongs, onDataChange, setAllSongs, setSongNumber ,setIs
           />
           <IoSearch color="white" className="cursor-pointer" size={25} />
         </div>
+      </div>
+      <div className=" shadow-custom shadow-black m-5 p-3 flex justify-evenly items-center ">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center  gap-5 text-gray-400">
+          <MdVerified color="#4292ec" size={30}/>
+          <h1>Verified Artist</h1>
+          </div>
+          <h1 className=" text-3xl">{currentSong?.singer}</h1>
+          <h1 className="mt-7">{currentSong?.monthlyView} <span className="ml-7 ">monthly listeners</span></h1>
+        </div>
+        <img src={singerImage}   alt="" className="max-h-[300px] rounded " />
+
       </div>
       <div className="mt-10">
         <div className="flex justify-between w-[80%] mx-auto items-center my-5 relative">

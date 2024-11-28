@@ -61,7 +61,7 @@ const shuffleSong = () => {
   }, [])
   
   return (
-    <div className=" flex flex-row  relative  bg-gradient-to-r from-[#0e0b0b] via-[#221111] to-[#310a0a] min-h-screen text-white text-lg gap-7">
+    <div className=" flex flex-row  pb-8  relative  bg-gradient-to-r from-[#0e0b0b] via-[#221111] to-[#310a0a] min-h-screen text-white text-lg gap-7">
       <div className="w-[20%]">
      <Suspense fallback={<h1>Loding......</h1>}>
       <Listitem />
