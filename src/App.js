@@ -9,20 +9,9 @@ function App() {
 
   const [allSongs, setAllSongs] = useState([])
   const [songNumber, setSongNumber] = useState(0)
-  const [cardData, setCardData]= useState({
-    "_id": "67474723474c013dc936e030",
-    "song": "HeroesTonight.mp3",
-    "singer": "Janji, Johnning",
-    "description": "Janji, Johnning - Heroes Tonight (feat. Johnning)",
-    "createdAt": "2024-11-27T16:21:55.748Z",
-    "updatedAt": "2024-11-27T17:29:48.211Z",
-    "__v": 0,
-    "image": "https://raw.githubusercontent.com/pawankumar45/musicPlayerImages/main/images/herostonight.png\n",
-    "album": "NCS",
-    "allView": "125",
-    "duration": "3:28",
-    "monthlyView": "125"
-})
+  const [isPlay, setIsPlay] = useState(false)
+  const [cardData, setCardData]= useState({})
+  const [currentSong, setCurrentSong] = useState(null);
 
 const nextSong = () => {
   if (songNumber < allSongs.length - 1) {
@@ -81,15 +70,17 @@ const shuffleSong = () => {
 
       <div className="w-[55%]  bg-gradient-to-b from-[#501616] via-[#300f0f] to-[#140808]">
         <Suspense fallback={<h1>Loding......</h1>}>
-        {allSongs.length > 0 ? <MusicPlayer setSongNumber={setSongNumber} setAllSongs={setAllSongs} onDataChange={onClickMusicPlayer} allSongs={allSongs} /> : <h1 className="flex items-center justify-center mx-auto h-screen">Loading........</h1>}
+        {allSongs.length > 0 ? <MusicPlayer  currentSong={currentSong} setCurrentSong={setCurrentSong} setIsPlay={setIsPlay} setSongNumber={setSongNumber} setAllSongs={setAllSongs} onDataChange={onClickMusicPlayer} allSongs={allSongs} /> : <h1 className="flex items-center justify-center mx-auto h-screen">Loading........</h1>}
         </Suspense>
       </div>
       {
         cardData 
         &&
+        isPlay
+        &&
         <div className="w-[17%] rounded-md absolute bottom-7 right-16 bg-[#501616] h-[500px]">
           <Suspense fallback={<h1>Loding......</h1>}>
-          <Card data={cardData} nextSong={nextSong} prevSong={prevSong} shuffleSong={shuffleSong}  />
+          <Card data={cardData} setCurrentSong={setCurrentSong} nextSong={nextSong} isPlay={isPlay} prevSong={prevSong} shuffleSong={shuffleSong}  />
           </Suspense>
         </div>
       }

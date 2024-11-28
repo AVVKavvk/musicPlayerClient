@@ -3,13 +3,13 @@ import { IoSearch } from "react-icons/io5";
 import { HiMusicNote } from "react-icons/hi";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-function MusicPlayer({ allSongs, onDataChange, setAllSongs, setSongNumber }) {
-  const [currentSong, setCurrentSong] = useState(null);
+function MusicPlayer({ allSongs, onDataChange, setAllSongs, setSongNumber ,setIsPlay, currentSong, setCurrentSong}) {
 
   const setSongToAllPage = (song, index) => {
     setCurrentSong(song);
     onDataChange(song);
     setSongNumber(index)
+    setIsPlay(true)
   };
 
   const handleOnDragEnd = (result) => {
